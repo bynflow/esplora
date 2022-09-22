@@ -27,6 +27,6 @@ without which the program suffers from major limitations due to the fact that ea
 process. I am trying to figure out how I can apply multithreading in the application code as it is now.
 
     INSTALL AND RUN
-Filegm is a Python3 application and runs on Linux OS, to start it you need to install python3-tk. The command
-to run, for example, on Debian-based systems is: sudo apt-get install python3-tk
+Filegm is a Python3 application and runs on Linux OS, to start it you need to install python3-tk.
+The command to run, for example, on Debian-based systems is as usual: sudo apt-get install python3-tk
 
