@@ -1,4 +1,4 @@
-# Filegm
+# filegm-gui
 
 
 
@@ -6,7 +6,7 @@ Tool with a simple graphical interface to find lost files, and duplicate files, 
 
 
     DESCRIPTION
-"Filegm" is the name of a tool with a simple graphical interface that aims to trace files according to 2
+"filegm-gui" is the name of a tool with a simple graphical interface that aims to trace files according to 2
 guidelines which are the type of format and a precise or approximate date when the file was created in memory.
 
 The interface has 2 fields, which are the input field (left) in which the user will enter the precise date
@@ -26,7 +26,7 @@ to do some more research to figure out for example how to get the highlighting o
 as well as the highlighting of the same after they have been used (this mechanism by the way would need to be
 perfected).
 
-"Filegm", this little tool, has so much potential, interesting functions can be added: for example when
+filegm-gui, this little tool, has so much potential, interesting functions can be added: for example when
 searching for images created in a given time frame, if the result consists of several items they could be
 displayed and scrolled as slides in a virtual directory, same for audio files which could be listened to
 sequentially in a playlist.
@@ -37,6 +37,6 @@ process. I am trying to figure out how I can apply multithreading in the applica
 
 
     INSTALL AND RUN
-Filegm is a Python3 application and runs on Linux OS, to start it you need to install python3-tk.
+filegm-gui is a Python3 application and runs on Linux OS, to start it you need to install python3-tk.
 The command to run, for example, on Debian-based systems is as usual: sudo apt-get install python3-tk
 
