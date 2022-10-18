@@ -56,47 +56,47 @@ class Gui_filegm:
 
 
 
-        frm_top = Frame(self.master, bg='red', height=24)
+        frm_top = Frame(self.master, bg='#404040', height=24)
         frm_top.pack(side=TOP, fill=X)
 
-        frm_center = Frame(self.master, bg='blue', height=200)
+        frm_center = Frame(self.master, bg='#404040', height=200)
         frm_center.pack(fill=BOTH, expand=True)
 
-        frm_bottom = Frame(self.master, bg='green', height=24)
+        frm_bottom = Frame(self.master, bg='#404040', height=24)
         frm_bottom.pack(side=BOTTOM, fill=X)
 
 
 
-        frm_lbl = Frame(frm_center, bg='cyan', width=500, height=400, padx=2)
+        frm_lbl = Frame(frm_center, bg='#404040', width=500, height=400, padx=2)
         frm_lbl.pack(side=LEFT, fill=BOTH, expand=False)
 
-        frm_txt = Frame(frm_center, bg='black', width=600, height=400, padx=2)
+        frm_txt = Frame(frm_center, bg='#404040', width=600, height=400, padx=2)
         frm_txt.pack(side=LEFT, fill=BOTH, expand=True)
 
 
 
-        row_1 = Frame(frm_lbl, width=500, bg='#FC7E09')
+        row_1 = Frame(frm_lbl, width=500, bg='#404040')
         row_1.pack(fill=X, expand=True)
 
-        row_2 = Frame(frm_lbl, width=500, bg='#F1A81B')
+        row_2 = Frame(frm_lbl, width=500, bg='#404040')
         row_2.pack(fill=X, expand=True)
 
-        row_3 = Frame(frm_lbl, width=500, bg='#F1DC1B')
+        row_3 = Frame(frm_lbl, width=500, bg='#404040')
         row_3.pack(fill=X, expand=True)
 
-        row_4 = Frame(frm_lbl, width=500, bg='#D3F11B')
+        row_4 = Frame(frm_lbl, width=500, bg='#404040')
         row_4.pack(fill=X, expand=True)
 
-        row_5 = Frame(frm_lbl, width=500, bg='#70F11B')
+        row_5 = Frame(frm_lbl, width=500, bg='#404040')
         row_5.pack(fill=X, expand=True)
 
-        row_6 = Frame(frm_lbl, width=500, bg='#F16D1B')
+        row_6 = Frame(frm_lbl, width=500, bg='#404040')
         row_6.pack(fill=X, expand=True)
 
-        row_7 = Frame(frm_lbl, width=500, bg='#BAF11B')
+        row_7 = Frame(frm_lbl, width=500, bg='#404040')
         row_7.pack(fill=X, expand=True)
 
-        row_8 = Frame(frm_lbl, width=500, bg='#D3F11B')
+        row_8 = Frame(frm_lbl, width=500, bg='#404040')
         row_8.pack(fill=X, expand=True)
 
 
@@ -116,37 +116,37 @@ class Gui_filegm:
 
 
 
-        lbl_0 = Label(row_1, anchor=W, justify=LEFT, text=lbl_lst_inp[0])
+        lbl_0 = Label(row_1, anchor=W, justify=LEFT, bg='#404040', fg='#E6E6E6', text=lbl_lst_inp[0])
         lbl_0.pack(side=LEFT, fill=BOTH, expand=True)
 
-        lbl_1 = Label(row_2, anchor=W, justify=LEFT, text=lbl_lst_inp[1], pady=15)
+        lbl_1 = Label(row_2, anchor=W, justify=LEFT, bg='#404040', fg='#E6E6E6', text=lbl_lst_inp[1], pady=15)
         lbl_1.pack(side=LEFT, fill=BOTH, expand=True)
 
-        lbl_2 = Label(row_3, anchor=W, justify=LEFT, text=lbl_lst_inp[2])
+        lbl_2 = Label(row_3, anchor=W, justify=LEFT, bg='#404040', fg='#E6E6E6', text=lbl_lst_inp[2])
         lbl_2.pack(side=LEFT, fill=BOTH, expand=True)
 
-        lbl_3 = Label(row_4, anchor=W, justify=LEFT, text=lbl_lst_out[0], pady=15)
+        lbl_3 = Label(row_4, anchor=W, justify=LEFT, bg='#404040', fg='#E6E6E6', text=lbl_lst_out[0], pady=15)
         lbl_3.pack(side=LEFT, fill=BOTH, expand=True)
 
-        lbl_4 = Label(row_5, anchor=W, justify=LEFT, text=lbl_lst_out[1])
+        lbl_4 = Label(row_5, anchor=W, justify=LEFT, bg='#404040', fg='#E6E6E6', text=lbl_lst_out[1])
         lbl_4.pack(side=LEFT, fill=BOTH, expand=True)
 
-        lbl_5 = Label(row_6, anchor=W, justify=LEFT, text=lbl_lst_out[2], pady=15)
+        lbl_5 = Label(row_6, anchor=W, justify=LEFT, bg='#404040', fg='#E6E6E6', text=lbl_lst_out[2], pady=15)
         lbl_5.pack(side=LEFT, fill=BOTH, expand=True)
 
-        lbl_6 = Label(row_7, anchor=W, justify=LEFT, text=lbl_lst_out[3])
+        lbl_6 = Label(row_7, anchor=W, justify=LEFT, bg='#404040', fg='#E6E6E6', text=lbl_lst_out[3])
         lbl_6.pack(side=LEFT, fill=BOTH, expand=True)
 
 
 
-        ent_ent_0 = Entry(row_1, background='#F1F7FF')                                                          # widget input, date A
+        ent_ent_0 = Entry(row_1, background='#D9D9D9')                                                          # widget input, date A
         ent_ent_0.pack(side=LEFT, fill=X, pady=15, ipady=5)
         ent_ent_0.focus()
 
-        ent_ent_1 = Entry(row_2, background='#F1F7FF')                                                          # .. date B
+        ent_ent_1 = Entry(row_2, background='#D9D9D9')                                                          # .. date B
         ent_ent_1.pack(side=LEFT, fill=X, pady=15, ipady=6)
 
-        ent_ent_2 = Entry(row_3, background='#F1F7FF')                                                          # .. extension(s)
+        ent_ent_2 = Entry(row_3, background='#D9D9D9')                                                          # .. extension(s)
         ent_ent_2.pack(side=LEFT, fill=X, pady=20, ipady=6)
 
 
@@ -166,18 +166,18 @@ class Gui_filegm:
 
 
 
-        txt = Text(frm_txt, font=('Liberation Mono', 11), foreground='#2173E8', wrap=NONE, cursor="arrow")      # 'Text()' widget declaration with native arrow
+        txt = Text(frm_txt, font=('Liberation Mono', 11), background='#3D3D3D',foreground='#FBFFFF', wrap=NONE, cursor="arrow")      # 'Text()' widget declaration with native arrow
                                                                                                                 # - cursor
         txt.config(state=DISABLED)                                                                              # in this way it will not be possible to write
                                                                                                                 # - directly into the widget
         txt.pack(ipady=27, fill=BOTH, expand=True)
 
-        scroll_y = Scrollbar(frm_center)                                                                        # vertical scroller
+        scroll_y = Scrollbar(frm_center, background='#787878')                                                                        # vertical scroller
         scroll_y.pack(side="right", fill="y")
         scroll_y.config(command=txt.yview)
         txt.config(yscrollcommand=scroll_y.set)
 
-        scroll_x = Scrollbar(frm_txt, orient=HORIZONTAL)                                                        # scroller orizzontale
+        scroll_x = Scrollbar(frm_txt, background='#787878', orient=HORIZONTAL)                                                        # scroller orizzontale
         scroll_x.pack(side="bottom", fill="x")
         scroll_x.config(command=txt.xview)
         txt.config(xscrollcommand=scroll_x.set)
@@ -247,46 +247,46 @@ class Gui_filegm:
                 txt.tag_configure(lv_clr)
 
 
-                if i.endswith(('.jpg', '.jpeg', '.png', 'tiff', 'tif', '.bmp', '.gif', '.eps', '.raw', '.cr2', '.nef', '.orf', '.sr2')):
+                if i.endswith(('.jpg', '.jpeg', '.png', 'tiff', 'tif', '.bmp', '.eps', '.raw', '.cr2', '.nef', '.orf', '.sr2', '.webp')):
                     txt.tag_bind(filename, '<1>', lambda event, fn=i: subprocess.run(["xviewer", fn]))
                     txt.tag_bind(clicked_clr, '<1>', lambda event, wdg=txt, tn=clicked_clr: wdg.tag_configure(tn, foreground='#666633'))
                     txt.tag_bind(en_clr, '<Enter>', lambda event, wdg=txt, tn=en_clr: wdg.tag_configure(tn, background='#FFD162'))
-                    txt.tag_bind(lv_clr, '<Leave>', lambda event, wdg=txt, tn=lv_clr: wdg.tag_configure(tn, background='white'))
+                    txt.tag_bind(lv_clr, '<Leave>', lambda event, wdg=txt, tn=lv_clr: wdg.tag_configure(tn, background='#533E97'))
                 elif i.endswith(('.ogv', '.webm', '.flv', '.avi', '.mov', 'wmv', '.3gp', '.yuv', '.mp4', '.asf', '.mpeg', '.mpg', '.mp3', '.mkv', '.flac', '.wav')):
                     txt.tag_bind(filename, '<1>', lambda event, fn=i: subprocess.run(["celluloid", fn]))
                     txt.tag_bind(clicked_clr, '<1>', lambda event, wdg=txt, tn=clicked_clr: wdg.tag_configure(tn, foreground='#666633'))
                     txt.tag_bind(en_clr, '<Enter>', lambda event, wdg=txt, tn=en_clr: wdg.tag_configure(tn, background='#FFD162'))
-                    txt.tag_bind(lv_clr, '<Leave>', lambda event, wdg=txt, tn=lv_clr: wdg.tag_configure(tn, background='white'))
-                elif i.endswith(('.txt', '.py', '.c')):
+                    txt.tag_bind(lv_clr, '<Leave>', lambda event, wdg=txt, tn=lv_clr: wdg.tag_configure(tn, background='#1F508B'))
+                elif i.endswith(('.txt', '.py', '.c', '.cpp')):
                     txt.tag_bind(filename, '<1>', lambda event, fn=i: subprocess.run(["gedit", fn]))
                     txt.tag_bind(clicked_clr, '<1>', lambda event, wdg=txt, tn=clicked_clr: wdg.tag_configure(tn, foreground='#666633'))
                     txt.tag_bind(en_clr, '<Enter>', lambda event, wdg=txt, tn=en_clr: wdg.tag_configure(tn, background='#FFD162'))
-                    txt.tag_bind(lv_clr, '<Leave>', lambda event, wdg=txt, tn=lv_clr: wdg.tag_configure(tn, background='white'))
+                    txt.tag_bind(lv_clr, '<Leave>', lambda event, wdg=txt, tn=lv_clr: wdg.tag_configure(tn, background='#506269'))
                 elif i.endswith(('.odt', '.doc', '.docx', '.pptx')):
                     txt.tag_bind(filename, '<1>', lambda event, fn=i: subprocess.run(["libreoffice", fn]))
                     txt.tag_bind(clicked_clr, '<1>', lambda event, wdg=txt, tn=clicked_clr: wdg.tag_configure(tn, foreground='#666633'))
                     txt.tag_bind(en_clr, '<Enter>', lambda event, wdg=txt, tn=en_clr: wdg.tag_configure(tn, background='#FFD162'))
-                    txt.tag_bind(lv_clr, '<Leave>', lambda event, wdg=txt, tn=lv_clr: wdg.tag_configure(tn, background='white'))
-                elif i.endswith(('.gif', '.webp')):
+                    txt.tag_bind(lv_clr, '<Leave>', lambda event, wdg=txt, tn=lv_clr: wdg.tag_configure(tn, background='#0A7E8C'))
+                elif i.endswith(('.gif')):
                     txt.tag_bind(filename, '<1>', lambda event, fn=i: subprocess.run(["gthumb", fn]))
                     txt.tag_bind(clicked_clr, '<1>', lambda event, wdg=txt, tn=clicked_clr: wdg.tag_configure(tn, foreground='#666633'))
                     txt.tag_bind(en_clr, '<Enter>', lambda event, wdg=txt, tn=en_clr: wdg.tag_configure(tn, background='#FFD162'))
-                    txt.tag_bind(lv_clr, '<Leave>', lambda event, wdg=txt, tn=lv_clr: wdg.tag_configure(tn, background='white'))
+                    txt.tag_bind(lv_clr, '<Leave>', lambda event, wdg=txt, tn=lv_clr: wdg.tag_configure(tn, background='#851852'))
                 elif i.endswith(('.pdf',)):
                     txt.tag_bind(filename, '<1>', lambda event, fn=i: subprocess.run(["evince", fn]))
                     txt.tag_bind(clicked_clr, '<1>', lambda event, wdg=txt, tn=clicked_clr: wdg.tag_configure(tn, foreground='#666633'))
                     txt.tag_bind(en_clr, '<Enter>', lambda event, wdg=txt, tn=en_clr: wdg.tag_configure(tn, background='#FFD162'))
-                    txt.tag_bind(lv_clr, '<Leave>', lambda event, wdg=txt, tn=lv_clr: wdg.tag_configure(tn, background='white'))
+                    txt.tag_bind(lv_clr, '<Leave>', lambda event, wdg=txt, tn=lv_clr: wdg.tag_configure(tn, background='#B30B00'))
                 elif i.endswith(('.html', '.php', '.xml')):
                     txt.tag_bind(filename, '<1>', lambda event, fn=i: subprocess.run(["firefox", fn]))
                     txt.tag_bind(clicked_clr, '<1>', lambda event, wdg=txt, tn=clicked_clr: wdg.tag_configure(tn, foreground='#666633'))
                     txt.tag_bind(en_clr, '<Enter>', lambda event, wdg=txt, tn=en_clr: wdg.tag_configure(tn, background='#FFD162'))
-                    txt.tag_bind(lv_clr, '<Leave>', lambda event, wdg=txt, tn=lv_clr: wdg.tag_configure(tn, background='white'))
+                    txt.tag_bind(lv_clr, '<Leave>', lambda event, wdg=txt, tn=lv_clr: wdg.tag_configure(tn, background='#41A2D1'))
 
             txt.config(state=DISABLED)
 
 
-        btn_1 = Button(row_8, width=34, text='shows the specified files from this period', command=output_file)
+        btn_1 = Button(row_8, width=34, text='Shows the specified files from this period', fg='#404040', command=output_file)
         btn_1.grid(row=0, column=1, pady=10, padx=6)
 
 
@@ -329,47 +329,47 @@ class Gui_filegm:
                 txt.tag_configure(en_clr)
                 txt.tag_configure(lv_clr)
 
-                if i.endswith(('.jpg', '.jpeg', '.png', 'tiff', 'tif', '.bmp', '.gif', '.eps', '.raw', '.cr2', '.nef', '.orf', '.sr2')):
+                if i.endswith(('.jpg', '.jpeg', '.png', 'tiff', 'tif', '.bmp', '.eps', '.raw', '.cr2', '.nef', '.orf', '.sr2', '.webp')):
                     txt.tag_bind(filename, '<1>', lambda event, fn=i: subprocess.run(["xviewer", fn]))
                     txt.tag_bind(clicked_clr, '<1>', lambda event, wdg=txt, tn=clicked_clr: wdg.tag_configure(tn, foreground='#666633'))
                     txt.tag_bind(en_clr, '<Enter>', lambda event, wdg=txt, tn=en_clr: wdg.tag_configure(tn, background='#FFD162'))
-                    txt.tag_bind(lv_clr, '<Leave>', lambda event, wdg=txt, tn=lv_clr: wdg.tag_configure(tn, background='white'))
-                elif i.endswith(('.ogv', '.webm', '.flv', '.avi', '.mov', 'wmv', '.3gp', '.yuv', '.mp4', '.asf', '.mpeg', '.mpg', '.mp3', '.flac', '.wav')):
+                    txt.tag_bind(lv_clr, '<Leave>', lambda event, wdg=txt, tn=lv_clr: wdg.tag_configure(tn, background='#533E97'))
+                elif i.endswith(('.ogv', '.webm', '.flv', '.avi', '.mov', 'wmv', '.3gp', '.yuv', '.mp4', '.asf', '.mpeg', '.mpg', '.mp3', '.mkv', '.flac', '.wav')):
                     txt.tag_bind(filename, '<1>', lambda event, fn=i: subprocess.run(["celluloid", fn]))
                     txt.tag_bind(clicked_clr, '<1>', lambda event, wdg=txt, tn=clicked_clr: wdg.tag_configure(tn, foreground='#666633'))
                     txt.tag_bind(en_clr, '<Enter>', lambda event, wdg=txt, tn=en_clr: wdg.tag_configure(tn, background='#FFD162'))
-                    txt.tag_bind(lv_clr, '<Leave>', lambda event, wdg=txt, tn=lv_clr: wdg.tag_configure(tn, background='white'))
-                elif i.endswith(('.txt', '.py', '.c')):
+                    txt.tag_bind(lv_clr, '<Leave>', lambda event, wdg=txt, tn=lv_clr: wdg.tag_configure(tn, background='#1F508B'))
+                elif i.endswith(('.txt', '.py', '.c', '.cpp')):
                     txt.tag_bind(filename, '<1>', lambda event, fn=i: subprocess.run(["gedit", fn]))
                     txt.tag_bind(clicked_clr, '<1>', lambda event, wdg=txt, tn=clicked_clr: wdg.tag_configure(tn, foreground='#666633'))
                     txt.tag_bind(en_clr, '<Enter>', lambda event, wdg=txt, tn=en_clr: wdg.tag_configure(tn, background='#FFD162'))
-                    txt.tag_bind(lv_clr, '<Leave>', lambda event, wdg=txt, tn=lv_clr: wdg.tag_configure(tn, background='white'))
+                    txt.tag_bind(lv_clr, '<Leave>', lambda event, wdg=txt, tn=lv_clr: wdg.tag_configure(tn, background='#506269'))
                 elif i.endswith(('.odt', '.doc', '.docx', '.pptx')):
                     txt.tag_bind(filename, '<1>', lambda event, fn=i: subprocess.run(["libreoffice", fn]))
                     txt.tag_bind(clicked_clr, '<1>', lambda event, wdg=txt, tn=clicked_clr: wdg.tag_configure(tn, foreground='#666633'))
                     txt.tag_bind(en_clr, '<Enter>', lambda event, wdg=txt, tn=en_clr: wdg.tag_configure(tn, background='#FFD162'))
-                    txt.tag_bind(lv_clr, '<Leave>', lambda event, wdg=txt, tn=lv_clr: wdg.tag_configure(tn, background='white'))
-                elif i.endswith(('.gif', '.webp')):
+                    txt.tag_bind(lv_clr, '<Leave>', lambda event, wdg=txt, tn=lv_clr: wdg.tag_configure(tn, background='#0A7E8C'))
+                elif i.endswith(('.gif')):
                     txt.tag_bind(filename, '<1>', lambda event, fn=i: subprocess.run(["gthumb", fn]))
                     txt.tag_bind(clicked_clr, '<1>', lambda event, wdg=txt, tn=clicked_clr: wdg.tag_configure(tn, foreground='#666633'))
                     txt.tag_bind(en_clr, '<Enter>', lambda event, wdg=txt, tn=en_clr: wdg.tag_configure(tn, background='#FFD162'))
-                    txt.tag_bind(lv_clr, '<Leave>', lambda event, wdg=txt, tn=lv_clr: wdg.tag_configure(tn, background='white'))
+                    txt.tag_bind(lv_clr, '<Leave>', lambda event, wdg=txt, tn=lv_clr: wdg.tag_configure(tn, background='#851852'))
                 elif i.endswith(('.pdf',)):
                     txt.tag_bind(filename, '<1>', lambda event, fn=i: subprocess.run(["evince", fn]))
                     txt.tag_bind(clicked_clr, '<1>', lambda event, wdg=txt, tn=clicked_clr: wdg.tag_configure(tn, foreground='#666633'))
                     txt.tag_bind(en_clr, '<Enter>', lambda event, wdg=txt, tn=en_clr: wdg.tag_configure(tn, background='#FFD162'))
-                    txt.tag_bind(lv_clr, '<Leave>', lambda event, wdg=txt, tn=lv_clr: wdg.tag_configure(tn, background='white'))
+                    txt.tag_bind(lv_clr, '<Leave>', lambda event, wdg=txt, tn=lv_clr: wdg.tag_configure(tn, background='#B30B00'))
                 elif i.endswith(('.html', '.php', '.xml')):
                     txt.tag_bind(filename, '<1>', lambda event, fn=i: subprocess.run(["firefox", fn]))
                     txt.tag_bind(clicked_clr, '<1>', lambda event, wdg=txt, tn=clicked_clr: wdg.tag_configure(tn, foreground='#666633'))
                     txt.tag_bind(en_clr, '<Enter>', lambda event, wdg=txt, tn=en_clr: wdg.tag_configure(tn, background='#FFD162'))
-                    txt.tag_bind(lv_clr, '<Leave>', lambda event, wdg=txt, tn=lv_clr: wdg.tag_configure(tn, background='white'))
+                    txt.tag_bind(lv_clr, '<Leave>', lambda event, wdg=txt, tn=lv_clr: wdg.tag_configure(tn, background='#41A2D1'))
 
             txt.config(state=DISABLED)
 
 
 
-        btn_2 = Button(row_8, width=18, text='Show duplicates files', command=output_dupl)
+        btn_2 = Button(row_8, width=18, text='Show duplicates files', fg='#404040', command=output_dupl)
         btn_2.grid(row=0, column=2, pady=10, padx=6)
 
 
