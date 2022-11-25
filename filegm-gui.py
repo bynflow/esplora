@@ -209,17 +209,18 @@ class Gui_filegm:
             del_txt_and_entry()
 
             io_dict = Dict_stream(ent_ent_0.get(), ent_ent_1.get(), ent_ent_2.get())
-            io_dict.dict_outp()
 
-            ent_lbl_0['text'] = io_dict.dict_outp().get('print_totFiles')
-            ent_lbl_1['text'] = io_dict.dict_outp().get('print_TotFiles_Est')
-            ent_lbl_2['text'] = io_dict.dict_outp().get('print_specified_files_that_period')
-            ent_lbl_3['text'] = io_dict.dict_outp().get('print_duplicate')
+            allFiles = io_dict.dict_outp()
+
+            ent_lbl_0['text'] = allFiles.get('print_totFiles')
+            ent_lbl_1['text'] = allFiles.get('print_TotFiles_Est')
+            ent_lbl_2['text'] = allFiles.get('print_specified_files_that_period')
+            ent_lbl_3['text'] = allFiles.get('print_duplicate')
 
 
             txt.config(state=NORMAL)
             a = 0
-            for i in io_dict.dict_outp().get('file_in_focus'):                                                  # for each element of 'file in focus'
+            for i in allFiles.get('file_in_focus'):                                                  # for each element of 'file in focus'
 
                 a += 1
 
@@ -299,12 +300,13 @@ class Gui_filegm:
             del_txt_and_entry()
 
             io_dict = Dict_stream(ent_ent_0.get(), ent_ent_1.get(), ent_ent_2.get())
-            io_dict.dict_outp()
 
-            ent_lbl_0['text'] = io_dict.dict_outp().get('print_totFiles')
-            ent_lbl_1['text'] = io_dict.dict_outp().get('print_TotFiles_Est')
-            ent_lbl_2['text'] = io_dict.dict_outp().get('print_specified_files_that_period')
-            ent_lbl_3['text'] = io_dict.dict_outp().get('print_duplicate')
+            allFiles = io_dict.dict_outp()
+
+            ent_lbl_0['text'] = allFiles.get('print_totFiles')
+            ent_lbl_1['text'] = allFiles.get('print_TotFiles_Est')
+            ent_lbl_2['text'] = allFiles.get('print_specified_files_that_period')
+            ent_lbl_3['text'] = allFiles.get('print_duplicate')
 
 
             txt.config(state=NORMAL)
