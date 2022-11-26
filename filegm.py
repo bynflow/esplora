@@ -1,6 +1,8 @@
 #! /usr/bin/python3
 
 import os
+import stat
+import threading
 from datetime import datetime, timedelta
 # from tkinter import *
 
@@ -8,6 +10,97 @@ tme_tms = ''
 tme_tms_2 = ''
 #lsta = []
 inp_3_tpl = ()
+
+class File:
+    def __init__(self, path):
+        self.path = path
+        stat = os.lstat(path)
+        self.ctime = stat.st_ctime
+        self.mode = stat.st_mode    
+
+    def get_extension(self):
+        return "." + self.path.split(sep=".")[-1]
+
+    def is_regular_file(self):
+        return stat.S_ISREG(self.mode)
+
+    def is_between_dates(self, start_date, end_date):
+        start = datetime.strptime(start_date, "%Y-%m-%d")
+        if end_date == "":
+            end = datetime.now()
+        elif end_date == start_date:
+            end = start_date + timedelta(days=1)
+        else:
+            end = datetime.strptime(end_date, "%Y-%m-%d")
+
+        filetime = datetime.utcfromtimestamp(self.ctime)
+        return filetime >= start and filetime <= end
+
+    def __str__(self):
+        return self.path
+
+    def __repr__(self):
+        return self.path
+
+class Search:
+    def __init__(self, start_date, end_date, extensions):
+        self.start_date = start_date
+        self.end_date = end_date
+        self.extensions = extensions
+
+
+        self.is_finished = False
+        self.total_num = 0
+        self.matching_extensions_num = 0
+        self.files_in_period_num = 0
+
+        self.allFiles = []
+
+        thread = threading.Thread(target=self.search)
+        thread.daemon = True
+        thread.start()
+
+    def search(self):
+        for rootDirName, _, filenames in os.walk(os.environ['HOME']):
+                for filename in filenames:
+                    filePath = os.path.join(rootDirName, filename)
+                    file = File(filePath)
+
+                    if not file.is_regular_file():
+                        continue
+                    self.total_num += 1
+
+                    if not file.get_extension() in self.extensions:
+                        continue
+                    self.matching_extensions_num += 1
+
+                    if not file.is_between_dates(self.start_date, self.end_date):
+                        continue
+                    self.files_in_period_num += 1
+
+                    self.allFiles.append(file)
+                    #yield file
+
+        self.is_finished = True
+
+    def get_total_num(self):
+        return self.total_num
+
+
+    def _filter(self):
+        def check_extension(file):
+            return file.get_extension() in self.extensions
+        return filter(check_extension, self.allFiles)
+
+
+    def get_matching_extensions_num(self):
+        return self.matching_extensions_num
+
+    def get_files_in_period_num(self):
+        return self.files_in_period_num
+
+    def get_duplicates_num(self):
+        return 0
 
 
 class Filegm:

@@ -5,43 +5,10 @@
 from tkinter import *
 from tkinter import ttk
 from filegm import Filegm
+from filegm import Search
 import subprocess
 import os
-
-
-
-
-
-
-
-class Dict_stream:                                                                                              # class that creates a dictionary with the results
-                                                                                                                # - of filegm
-
-    def __init__(self, data_A, data_B, estensioni):
-        self.data_A = data_A
-        self.data_B = data_B
-        self.estensioni = estensioni
-
-    def dict_outp(self):
-
-        data_A = self.data_A
-        data_B = self.data_B
-        estensioni = self.estensioni
-
-        def inpt():
-            f = Filegm(data_A, data_B, estensioni)
-            f.tutte_funzioni()
-            return f.__dict__
-
-        def oupt():
-            dct = inpt()
-            return dct
-
-        return oupt()
-
-
-
-
+import time
 
 
 
@@ -208,83 +175,85 @@ class Gui_filegm:
 
             del_txt_and_entry()
 
-            io_dict = Dict_stream(ent_ent_0.get(), ent_ent_1.get(), ent_ent_2.get())
+            fs = Search(ent_ent_0.get(), ent_ent_1.get(), ent_ent_2.get())
 
-            allFiles = io_dict.dict_outp()
-
-            ent_lbl_0['text'] = allFiles.get('print_totFiles')
-            ent_lbl_1['text'] = allFiles.get('print_TotFiles_Est')
-            ent_lbl_2['text'] = allFiles.get('print_specified_files_that_period')
-            ent_lbl_3['text'] = allFiles.get('print_duplicate')
-
-
-            txt.config(state=NORMAL)
             a = 0
-            for i in allFiles.get('file_in_focus'):                                                  # for each element of 'file in focus'
 
-                a += 1
+            while not fs.is_finished:
+                time.sleep(0.1)
+                ent_lbl_0['text'] = fs.get_total_num()
+                ent_lbl_1['text'] = fs.get_matching_extensions_num()
+                ent_lbl_2['text'] = fs.get_files_in_period_num()
+                ent_lbl_3['text'] = 0 # TODO: implement
+                txt.update()
 
-                filename = 'path-' + str(a)                                                                     # 'tags' are defined, named 'filename', each with
-                                                                                                                # - the respective number 'a' for each element in
-                                                                                                                # - the loop.
+                txt.config(state=NORMAL)
 
-                en_clr = '' + str(a)                                                                            # ... by precisely defining the name of tags this
-                                                                                                                # - way (except for defining 'filename', for its
-                                                                                                                # - functionality!), i.e., with an empty string +
-                                                                                                                # - string-switching of the sequence number, it
-                                                                                                                # - was seen that the blinking, i.e., the
-                                                                                                                # - appearance) disappearance of the highlighting
-                                                                                                                # - on mouseover (finally) works
-                lv_clr = '' + str(a)
-                clicked_clr = '' + str(a)
+                for i in fs.allFiles[a:]:                                                  # for each element of 'file in focus'
 
-                txt.insert(END, i + '\n', (filename, en_clr, lv_clr, clicked_clr))                              # the third element ('filename') is used (I assume)
-                                                                                                                # - to assign each looped element the respective
-                                                                                                                # - 'filename' tag
+                    a += 1
 
-                txt.tag_configure(filename)                                                                     # each tag has the options defined here
-                txt.tag_configure(clicked_clr)
-                txt.tag_configure(en_clr)
-                txt.tag_configure(lv_clr)
+                    filename = 'path-' + str(a)                                                                     # 'tags' are defined, named 'filename', each with
+                                                                                                                    # - the respective number 'a' for each element in
+                                                                                                                    # - the loop.
 
+                    en_clr = '' + str(a)                                                                            # ... by precisely defining the name of tags this
+                                                                                                                    # - way (except for defining 'filename', for its
+                                                                                                                    # - functionality!), i.e., with an empty string +
+                                                                                                                    # - string-switching of the sequence number, it
+                                                                                                                    # - was seen that the blinking, i.e., the
+                                                                                                                    # - appearance) disappearance of the highlighting
+                                                                                                                    # - on mouseover (finally) works
+                    lv_clr = '' + str(a)
+                    clicked_clr = '' + str(a)
 
-                if i.endswith(('.jpg', '.jpeg', '.png', 'tiff', 'tif', '.bmp', '.eps', '.raw', '.cr2', '.nef', '.orf', '.sr2', '.webp')):
-                    txt.tag_bind(filename, '<1>', lambda event, fn=i: subprocess.run(["xviewer", fn]))
-                    txt.tag_bind(clicked_clr, '<1>', lambda event, wdg=txt, tn=clicked_clr: wdg.tag_configure(tn, foreground='#666633'))
-                    txt.tag_bind(en_clr, '<Enter>', lambda event, wdg=txt, tn=en_clr: wdg.tag_configure(tn, background='#FFD162'))
-                    txt.tag_bind(lv_clr, '<Leave>', lambda event, wdg=txt, tn=lv_clr: wdg.tag_configure(tn, background='#533E97'))
-                elif i.endswith(('.ogv', '.webm', '.flv', '.avi', '.mov', 'wmv', '.3gp', '.yuv', '.mp4', '.asf', '.mpeg', '.mpg', '.mp3', '.mkv', '.flac', '.wav')):
-                    txt.tag_bind(filename, '<1>', lambda event, fn=i: subprocess.run(["celluloid", fn]))
-                    txt.tag_bind(clicked_clr, '<1>', lambda event, wdg=txt, tn=clicked_clr: wdg.tag_configure(tn, foreground='#666633'))
-                    txt.tag_bind(en_clr, '<Enter>', lambda event, wdg=txt, tn=en_clr: wdg.tag_configure(tn, background='#FFD162'))
-                    txt.tag_bind(lv_clr, '<Leave>', lambda event, wdg=txt, tn=lv_clr: wdg.tag_configure(tn, background='#1F508B'))
-                elif i.endswith(('.txt', '.py', '.c', '.cpp')):
-                    txt.tag_bind(filename, '<1>', lambda event, fn=i: subprocess.run(["gedit", fn]))
-                    txt.tag_bind(clicked_clr, '<1>', lambda event, wdg=txt, tn=clicked_clr: wdg.tag_configure(tn, foreground='#666633'))
-                    txt.tag_bind(en_clr, '<Enter>', lambda event, wdg=txt, tn=en_clr: wdg.tag_configure(tn, background='#FFD162'))
-                    txt.tag_bind(lv_clr, '<Leave>', lambda event, wdg=txt, tn=lv_clr: wdg.tag_configure(tn, background='#506269'))
-                elif i.endswith(('.odt', '.doc', '.docx', '.pptx')):
-                    txt.tag_bind(filename, '<1>', lambda event, fn=i: subprocess.run(["libreoffice", fn]))
-                    txt.tag_bind(clicked_clr, '<1>', lambda event, wdg=txt, tn=clicked_clr: wdg.tag_configure(tn, foreground='#666633'))
-                    txt.tag_bind(en_clr, '<Enter>', lambda event, wdg=txt, tn=en_clr: wdg.tag_configure(tn, background='#FFD162'))
-                    txt.tag_bind(lv_clr, '<Leave>', lambda event, wdg=txt, tn=lv_clr: wdg.tag_configure(tn, background='#0A7E8C'))
-                elif i.endswith(('.gif')):
-                    txt.tag_bind(filename, '<1>', lambda event, fn=i: subprocess.run(["gthumb", fn]))
-                    txt.tag_bind(clicked_clr, '<1>', lambda event, wdg=txt, tn=clicked_clr: wdg.tag_configure(tn, foreground='#666633'))
-                    txt.tag_bind(en_clr, '<Enter>', lambda event, wdg=txt, tn=en_clr: wdg.tag_configure(tn, background='#FFD162'))
-                    txt.tag_bind(lv_clr, '<Leave>', lambda event, wdg=txt, tn=lv_clr: wdg.tag_configure(tn, background='#851852'))
-                elif i.endswith(('.pdf',)):
-                    txt.tag_bind(filename, '<1>', lambda event, fn=i: subprocess.run(["evince", fn]))
-                    txt.tag_bind(clicked_clr, '<1>', lambda event, wdg=txt, tn=clicked_clr: wdg.tag_configure(tn, foreground='#666633'))
-                    txt.tag_bind(en_clr, '<Enter>', lambda event, wdg=txt, tn=en_clr: wdg.tag_configure(tn, background='#FFD162'))
-                    txt.tag_bind(lv_clr, '<Leave>', lambda event, wdg=txt, tn=lv_clr: wdg.tag_configure(tn, background='#B30B00'))
-                elif i.endswith(('.html', '.php', '.xml')):
-                    txt.tag_bind(filename, '<1>', lambda event, fn=i: subprocess.run(["firefox", fn]))
-                    txt.tag_bind(clicked_clr, '<1>', lambda event, wdg=txt, tn=clicked_clr: wdg.tag_configure(tn, foreground='#666633'))
-                    txt.tag_bind(en_clr, '<Enter>', lambda event, wdg=txt, tn=en_clr: wdg.tag_configure(tn, background='#FFD162'))
-                    txt.tag_bind(lv_clr, '<Leave>', lambda event, wdg=txt, tn=lv_clr: wdg.tag_configure(tn, background='#41A2D1'))
+                    txt.insert(END, str(i) + '\n', (filename, en_clr, lv_clr, clicked_clr))                              # the third element ('filename') is used (I assume)
+                                                                                                                    # - to assign each looped element the respective
+                                                                                                                    # - 'filename' tag
 
-            txt.config(state=DISABLED)
+                    txt.tag_configure(filename)                                                                     # each tag has the options defined here
+                    txt.tag_configure(clicked_clr)
+                    txt.tag_configure(en_clr)
+                    txt.tag_configure(lv_clr)
+
+                    i = str(i)
+                    if i.endswith(('.jpg', '.jpeg', '.png', 'tiff', 'tif', '.bmp', '.eps', '.raw', '.cr2', '.nef', '.orf', '.sr2', '.webp')):
+                        txt.tag_bind(filename, '<1>', lambda event, fn=i: subprocess.run(["xviewer", fn]))
+                        txt.tag_bind(clicked_clr, '<1>', lambda event, wdg=txt, tn=clicked_clr: wdg.tag_configure(tn, foreground='#666633'))
+                        txt.tag_bind(en_clr, '<Enter>', lambda event, wdg=txt, tn=en_clr: wdg.tag_configure(tn, background='#FFD162'))
+                        txt.tag_bind(lv_clr, '<Leave>', lambda event, wdg=txt, tn=lv_clr: wdg.tag_configure(tn, background='#533E97'))
+                    elif i.endswith(('.ogv', '.webm', '.flv', '.avi', '.mov', 'wmv', '.3gp', '.yuv', '.mp4', '.asf', '.mpeg', '.mpg', '.mp3', '.mkv', '.flac', '.wav')):
+                        txt.tag_bind(filename, '<1>', lambda event, fn=i: subprocess.run(["celluloid", fn]))
+                        txt.tag_bind(clicked_clr, '<1>', lambda event, wdg=txt, tn=clicked_clr: wdg.tag_configure(tn, foreground='#666633'))
+                        txt.tag_bind(en_clr, '<Enter>', lambda event, wdg=txt, tn=en_clr: wdg.tag_configure(tn, background='#FFD162'))
+                        txt.tag_bind(lv_clr, '<Leave>', lambda event, wdg=txt, tn=lv_clr: wdg.tag_configure(tn, background='#1F508B'))
+                    elif i.endswith(('.txt', '.py', '.c', '.cpp')):
+                        txt.tag_bind(filename, '<1>', lambda event, fn=i: subprocess.run(["gedit", fn]))
+                        txt.tag_bind(clicked_clr, '<1>', lambda event, wdg=txt, tn=clicked_clr: wdg.tag_configure(tn, foreground='#666633'))
+                        txt.tag_bind(en_clr, '<Enter>', lambda event, wdg=txt, tn=en_clr: wdg.tag_configure(tn, background='#FFD162'))
+                        txt.tag_bind(lv_clr, '<Leave>', lambda event, wdg=txt, tn=lv_clr: wdg.tag_configure(tn, background='#506269'))
+                    elif i.endswith(('.odt', '.doc', '.docx', '.pptx')):
+                        txt.tag_bind(filename, '<1>', lambda event, fn=i: subprocess.run(["libreoffice", fn]))
+                        txt.tag_bind(clicked_clr, '<1>', lambda event, wdg=txt, tn=clicked_clr: wdg.tag_configure(tn, foreground='#666633'))
+                        txt.tag_bind(en_clr, '<Enter>', lambda event, wdg=txt, tn=en_clr: wdg.tag_configure(tn, background='#FFD162'))
+                        txt.tag_bind(lv_clr, '<Leave>', lambda event, wdg=txt, tn=lv_clr: wdg.tag_configure(tn, background='#0A7E8C'))
+                    elif i.endswith(('.gif')):
+                        txt.tag_bind(filename, '<1>', lambda event, fn=i: subprocess.run(["gthumb", fn]))
+                        txt.tag_bind(clicked_clr, '<1>', lambda event, wdg=txt, tn=clicked_clr: wdg.tag_configure(tn, foreground='#666633'))
+                        txt.tag_bind(en_clr, '<Enter>', lambda event, wdg=txt, tn=en_clr: wdg.tag_configure(tn, background='#FFD162'))
+                        txt.tag_bind(lv_clr, '<Leave>', lambda event, wdg=txt, tn=lv_clr: wdg.tag_configure(tn, background='#851852'))
+                    elif i.endswith(('.pdf',)):
+                        txt.tag_bind(filename, '<1>', lambda event, fn=i: subprocess.run(["evince", fn]))
+                        txt.tag_bind(clicked_clr, '<1>', lambda event, wdg=txt, tn=clicked_clr: wdg.tag_configure(tn, foreground='#666633'))
+                        txt.tag_bind(en_clr, '<Enter>', lambda event, wdg=txt, tn=en_clr: wdg.tag_configure(tn, background='#FFD162'))
+                        txt.tag_bind(lv_clr, '<Leave>', lambda event, wdg=txt, tn=lv_clr: wdg.tag_configure(tn, background='#B30B00'))
+                    elif i.endswith(('.html', '.php', '.xml')):
+                        txt.tag_bind(filename, '<1>', lambda event, fn=i: subprocess.run(["firefox", fn]))
+                        txt.tag_bind(clicked_clr, '<1>', lambda event, wdg=txt, tn=clicked_clr: wdg.tag_configure(tn, foreground='#666633'))
+                        txt.tag_bind(en_clr, '<Enter>', lambda event, wdg=txt, tn=en_clr: wdg.tag_configure(tn, background='#FFD162'))
+                        txt.tag_bind(lv_clr, '<Leave>', lambda event, wdg=txt, tn=lv_clr: wdg.tag_configure(tn, background='#41A2D1'))
+
+                txt.config(state=DISABLED)
 
 
         btn_1 = Button(row_8, width=34, text='Shows the specified files from this period', fg='#404040', command=output_file)
