@@ -1,6 +1,8 @@
 #! /usr/bin/python3
 
 import os
+import stat
+import threading
 from datetime import datetime, timedelta
 # from tkinter import *
 
@@ -9,15 +11,105 @@ tme_tms_2 = ''
 #lsta = []
 inp_3_tpl = ()
 
+class File:
+    def __init__(self, path):
+        self.path = path
+        stat = os.lstat(path)
+        self.ctime = stat.st_ctime
+        self.mode = stat.st_mode    
+
+    def get_extension(self):
+        return "." + self.path.split(sep=".")[-1]
+
+    def is_regular_file(self):
+        return stat.S_ISREG(self.mode)
+
+    def is_between_dates(self, start_date, end_date):
+        start = datetime.strptime(start_date, "%Y-%m-%d")
+        if end_date == "":
+            end = datetime.now()
+        elif end_date == start_date:
+            end = start_date + timedelta(days=1)
+        else:
+            end = datetime.strptime(end_date, "%Y-%m-%d")
+
+        filetime = datetime.utcfromtimestamp(self.ctime)
+        return filetime >= start and filetime <= end
+
+    def __str__(self):
+        return self.path
+
+    def __repr__(self):
+        return self.path
+
+class Search:
+    def __init__(self, start_date, end_date, extensions):
+        self.start_date = start_date
+        self.end_date = end_date
+        self.extensions = extensions
+
+
+        self.is_finished = False
+        self.total_num = 0
+        self.matching_extensions_num = 0
+        self.files_in_period_num = 0
+
+        self.allFiles = []
+
+        thread = threading.Thread(target=self.search)
+        thread.daemon = True
+        thread.start()
+
+    def search(self):
+        for rootDirName, _, filenames in os.walk(os.environ['HOME']):
+                for filename in filenames:
+                    filePath = os.path.join(rootDirName, filename)
+                    file = File(filePath)
+
+                    if not file.is_regular_file():
+                        continue
+                    self.total_num += 1
+
+                    if not file.get_extension() in self.extensions:
+                        continue
+                    self.matching_extensions_num += 1
+
+                    if not file.is_between_dates(self.start_date, self.end_date):
+                        continue
+                    self.files_in_period_num += 1
+
+                    self.allFiles.append(file)
+                    #yield file
+
+        self.is_finished = True
+
+    def get_total_num(self):
+        return self.total_num
+
+
+    def _filter(self):
+        def check_extension(file):
+            return file.get_extension() in self.extensions
+        return filter(check_extension, self.allFiles)
+
+
+    def get_matching_extensions_num(self):
+        return self.matching_extensions_num
+
+    def get_files_in_period_num(self):
+        return self.files_in_period_num
+
+    def get_duplicates_num(self):
+        return 0
+
 
 class Filegm:
 
-    def __init__(self, data_a, data_b, estensioni):
+    def __init__(self, start_date, end_date, extensions):
 
-        self.data_a = data_a
-        self.data_b = data_b
-        self.estensioni = estensioni
-
+        self.start_date = start_date
+        self.end_date = end_date
+        self.extensions = extensions
 
         # self.print_paths = p_p
         self.print_totFiles = None
@@ -31,28 +123,28 @@ class Filegm:
 
         # ----------------------------------------------------------------------    Entering a 'a' start date and a 'b' end date for the search
 
-        tme = datetime.strptime(self.data_a, "%Y-%m-%d")
+        tme = datetime.strptime(self.start_date, "%Y-%m-%d")
         global tme_tms
         tme_tms = datetime.timestamp(tme)
         # print(tme_tms)
 
-        if self.data_b == '':
+        if self.end_date == '':
 
-            self.data_b = datetime.now()
-            tme2 = self.data_b
+            self.end_date = datetime.now()
+            tme2 = self.end_date
             global tme_tms_2
             tme_tms_2 = datetime.timestamp(tme2)
             # print(tme_tms_2)
 
-        elif self.data_b == self.data_a:
+        elif self.end_date == self.start_date:
 
-            tme_2 = datetime.strptime(self.data_b, "%Y-%m-%d") + timedelta(days=1)
+            tme_2 = datetime.strptime(self.end_date, "%Y-%m-%d") + timedelta(days=1)
             tme_tms_2 = datetime.timestamp(tme_2)
             # print(tme_tms_2)
 
         else:
 
-            tme_2 = datetime.strptime(self.data_b, "%Y-%m-%d") + timedelta(days=1)
+            tme_2 = datetime.strptime(self.end_date, "%Y-%m-%d") + timedelta(days=1)
             tme_tms_2 = datetime.timestamp(tme_2)
             # print(tme_tms_2)
 
@@ -60,7 +152,7 @@ class Filegm:
         # ----------------------------------------------------------------------    Entering one or more file extensions, for searching
 
         global inp_3_tpl
-        inp_3_tpl = tuple([i for i in self.estensioni.split()])
+        inp_3_tpl = tuple([i for i in self.extensions.split()])
         # print(inp_3_tpl)
 
 
@@ -77,8 +169,6 @@ class Filegm:
 
         def pth_gen():                                                              # Generic search generator of all folders and subfolders of $HOME
             for root, dirct, filename in os.walk(os.environ['HOME']):
-                for file in dirct:
-                    os.path.join(root, file)
                 for name in filename:
                     yield os.path.join(root, name)
 
@@ -91,14 +181,16 @@ class Filegm:
         #ttFiles = print_totFiles
 
 
-
-        def gen_ext():                                                              # Generator of all files (file = path and filename, then of the full path, i.e.,
-                                                                                    # - respectively: head and tail, enclosed in string) with the extensions entered
-                                                                                    # - in the search
+        """
+        gen_ext is the Generator of all files (file = path and filename, then of the full path, i.e.,
+        - respectively: head and tail, enclosed in string) with the extensions entered
+        - in the search
+        """
+        def gen_ext():                                                              
+                                                                
             for i in pth_gen():
                 if i.endswith(inp_3_tpl):
                     yield i
-
 
         # global print_TotFiles_Est
         self.print_TotFiles_Est = len([i for i in gen_ext()])
@@ -132,7 +224,7 @@ class Filegm:
 
 
 
-        if self.data_b:
+        if self.end_date:
             def gen_values_tme_2():                                                 # Generator of all 'epoch' dates greater than (equal to) date 'a' but less than
                                                                                     # - date 'b', of all files with the extensions entered in the search
                 for i in tme_lst:
@@ -146,7 +238,7 @@ class Filegm:
 
             # file_in_focus = []
 
-        if self.data_b:
+        if self.end_date:
             def gen_tpl_lst_a_b():                                                  # Generator of a tuple array of all files with respective 'epoch' date, taken
                                                                                     # - from the 'c_time' dictionary, with the extensions entered in the search
                 for i in c_time.items():
